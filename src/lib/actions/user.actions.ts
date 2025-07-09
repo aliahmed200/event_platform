@@ -1,4 +1,4 @@
-"user server";
+"use server";
 
 import { CreateUserParams } from "@/types";
 import { connectToDatabase } from "../database";
