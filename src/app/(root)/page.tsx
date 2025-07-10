@@ -30,7 +30,7 @@ export default function Home() {
             alt="hero"
             width={1000}
             height={1000}
-            className="max-h-[70vh] object-contain object-center xl:max-h-[56vh]"
+            className="max-h-[70vh] object-contain object-center xl:max-h-[60vh]"
           />
         </div>
       </section>
