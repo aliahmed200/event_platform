@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:migrate": "dotenv -e .env.local -- prisma migrate dev",
+    "prisma:generate": "dotenv -e .env.local -- prisma generate"
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^4.13.23",
