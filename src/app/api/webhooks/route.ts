@@ -46,12 +46,10 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-// import { clerkClient } from "@clerk/nextjs";
-// import { NextResponse } from "next/server";
+
 import prisma from "@/lib/db";
 
 export async function POST(req: Request) {
-  // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
   if (!WEBHOOK_SECRET) {
@@ -77,12 +75,10 @@ export async function POST(req: Request) {
   const payload = await req.json();
   const body = JSON.stringify(payload);
 
-  // Create a new Svix instance with your secret.
   const wh = new Webhook(WEBHOOK_SECRET);
 
   let evt: WebhookEvent;
 
-  // Verify the payload with the headers
   try {
     evt = wh.verify(body, {
       "svix-id": svix_id,
@@ -96,8 +92,6 @@ export async function POST(req: Request) {
     });
   }
 
-  // Get the ID and type
-  const { id } = evt.data;
   const eventType = evt.type;
 
   if (eventType === "user.created") {
@@ -115,40 +109,5 @@ export async function POST(req: Request) {
       },
     });
     return new Response(JSON.stringify(newUser), { status: 201 });
-
-    // if (newUser) {
-    //   await clerkClient.users.updateUserMetadata(id, {
-    //     publicMetadata: {
-    //       userId: newUser._id,
-    //     },
-    //   });
-    // }
-
-    // return NextResponse.json({ message: "OK", user: newUser });
   }
-
-  //   if (eventType === "user.updated") {
-  //     const { id, image_url, first_name, last_name, username } = evt.data;
-
-  //     const user = {
-  //       firstName: first_name,
-  //       lastName: last_name,
-  //       username: username!,
-  //       photo: image_url,
-  //     };
-
-  //     const updatedUser = await updateUser(id, user);
-
-  //     return NextResponse.json({ message: "OK", user: updatedUser });
-  //   }
-
-  //   if (eventType === "user.deleted") {
-  //     const { id } = evt.data;
-
-  //     const deletedUser = await deleteUser(id!);
-
-  //     return NextResponse.json({ message: "OK", user: deletedUser });
-  //   }
-
-  return new Response("", { status: 200 });
 }
