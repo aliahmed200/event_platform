@@ -4,15 +4,11 @@ export default clerkMiddleware({
   publicRoutes: [
     "/",
     "/events/:id",
-    "/api/webhook/clerck",
-    "/api/webhook/stripe",
+    "/api/webhooks",
+    "/api/webhooks/stripe",
     "/api/uploadthing",
   ],
-  ignoredRoutes: [
-    "/api/webhook/clerck",
-    "/api/webhook/stripe",
-    "/api/uploadthing",
-  ],
+  ignoredRoutes: ["api/webhooks", "/api/webhook/stripe", "/api/uploadthing"],
 } as any);
 
 export const config = {
